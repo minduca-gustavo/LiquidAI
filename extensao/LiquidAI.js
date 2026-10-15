@@ -24,18 +24,31 @@ function extraiTextoEditor(){
     })
 }
 
+async function configurar(parametro) {
+    if(parametro === 'extrair'){
+        let versaoDoPJECalc = await obterVersao()
+        return({versaoDoSistema: versaoDoPJECalc})
+    }
+    async function obterVersao() {
+        let versao = ''
+        return ({versao})
+    }
+}
+
 async function extraiDadosPJE(){
     return({
         reclamante,
         cpfReclamante,
         dataAjuizamento,
         cpfUsuarioCriador,
+        idSetor
     })
 }
 
 async function gerarPJC(){
     let dadosProcesso = await extraiDadosPJE()
     let textoSentenca = extraiTextoEditor()
+    let configuracoes = await configurar('extrair')
     let dataCalculo = new Date().setHours(0,0,0,0)
     let indice = 0
     let versao = 0
@@ -51,8 +64,14 @@ async function gerarPJC(){
             versaoDoSistema: versaoDoPJECalc,
         },
         textoSentenca,
-        dadosProcesso
+        dadosProcesso,
+        configuracoes
     )
+    let dadosProcessuaisPJECalc = criaDadosProcessuais()
+}
+
+function criaDadosProcessuais(){
+    
 }
 
 function criaParametrosIniciais(
@@ -60,9 +79,7 @@ function criaParametrosIniciais(
         id,
         versao,
         dataCriacao= new Date().setHours(0,0,0,0),
-        dataDeLiquidacao = new Date().setHours(0,0,0,0),
-        cpfUsuarioCriador,
-        versaoDoSistema
+        dataDeLiquidacao = new Date().setHours(0,0,0,0)
     }, // vem do gerarPJC
     {
         dataAdmissao,
@@ -90,8 +107,13 @@ function criaParametrosIniciais(
         diaFechamentoMes= '31',
     }, // vem do extraiTextoEditor
     {
-        dataAjuizamento
-    } // vem do extraiDadosPJE
+        dataAjuizamento,
+        cpfUsuarioCriador,
+        idSetor
+    }, // vem do extraiDadosPJE
+    {
+        versaoDoSistema
+    } // vem do configurar
 ){
     let parametros = {
         id: id,
