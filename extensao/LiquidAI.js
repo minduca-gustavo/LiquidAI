@@ -3,7 +3,24 @@ function extraiTextoEditor(){
         dataAdmissao,
         dataDemissao,
         valorUltimaRemuneracao,
-        valorMaiorRemuneracao
+        valorMaiorRemuneracao,
+        sabadoDiaUtil,
+        projetaAvisoIndenizado,
+        consideraFeriadoEstadual,
+        prescricaoFgts,
+        prescricaoQuinquenal,
+        limitarAvosAoPeriodoDoCalculo,
+        zeraValorNegativo,
+        consideraFeriadoMunicipal,
+        prazoFeriasProporcional,
+        regimeDoContrato,
+        indicesAcumulados,
+        apuracaoPrazoDoAvisoPrevio,
+        prazoAvisoInformado,
+        ativo,
+        processoInformadoManualmente,
+        comentarios,
+        diaFechamentoMes,
     })
 }
 
@@ -11,7 +28,8 @@ async function extraiDadosPJE(){
     return({
         reclamante,
         cpfReclamante,
-        dataAjuizamento
+        dataAjuizamento,
+        cpfUsuarioCriador,
     })
 }
 
@@ -28,7 +46,9 @@ async function gerarPJC(){
         {
             id: ++indice, 
             versao: ++versao, 
-            dataCriacao: dataCalculo
+            dataCriacao: dataCalculo,
+            dataDeLiquidacao: dataCalculo,
+            versaoDoSistema: versaoDoPJECalc,
         },
         textoSentenca,
         dadosProcesso
@@ -36,15 +56,42 @@ async function gerarPJC(){
 }
 
 function criaParametrosIniciais(
-    {id, versao, dataCriacao}, // vem do gerarPJC
+    {
+        id,
+        versao,
+        dataCriacao= new Date().setHours(0,0,0,0),
+        dataDeLiquidacao = new Date().setHours(0,0,0,0),
+        cpfUsuarioCriador,
+        versaoDoSistema
+    }, // vem do gerarPJC
     {
         dataAdmissao,
         dataDemissao,
         valorUltimaRemuneracao,
         valorMaiorRemuneracao,
-        valorCargaHorariaPadrao = '220'
+        valorCargaHorariaPadrao = '220',
+        sabadoDiaUtil= 'true',
+        projetaAvisoIndenizado= 'true',
+        consideraFeriadoEstadual= 'true',
+        prescricaoFgts= 'false',
+        prescricaoQuinquenal= 'false',
+        limitarAvosAoPeriodoDoCalculo= 'false',
+        zeraValorNegativo= 'false',
+        consideraFeriadoMunicipal= 'true',
+        tipoCalculo= 'VARA',
+        prazoFeriasProporcional= 'null',
+        regimeDoContrato= 'INTEGRAL',
+        indicesAcumulados= 'MES_SUBSEQUENTE_AO_VENCIMENTO',
+        apuracaoPrazoDoAvisoPrevio= 'APURACAO_CALCULADA',
+        prazoAvisoInformado= 'null',
+        ativo= 'true',
+        processoInformadoManualmente= 'false',
+        comentarios= 'null',
+        diaFechamentoMes= '31',
     }, // vem do extraiTextoEditor
-    {dataAjuizamento} // vem do extraiDadosPJE
+    {
+        dataAjuizamento
+    } // vem do extraiDadosPJE
 ){
     let parametros = {
         id: id,
@@ -73,23 +120,23 @@ function criaParametrosIniciais(
         dataDeLiquidacao,
         regimeDoContrato,
         indicesAcumulados,
-        usuarioCriador,
+        usuarioCriador: cpfUsuarioCriador,
         apuracaoPrazoDoAvisoPrevio,
         prazoAvisoInformado,
         ativo,
         processoInformadoManualmente,
         comentarios,
         idSetor,
-        instancia,
-        validado,
-        hashCalculoCorreto,
-        hashAtualizacaoCorreto,
+        instancia: 'PRIMEIRA',
+        validado: 'false',
+        hashCalculoCorreto: 'false',
+        hashAtualizacaoCorreto: 'false',
         diaFechamentoMes,
-        calculoExterno,
-        parcelasAtualizaveisCreditosReclamante,
-        parcelasAtualizaveisDescontoCreditosReclamante,
-        parcelasAtualizaveisOutrosDebitosReclamado,
-        parcelasAtualizaveisDebitosReclamante,
+        calculoExterno: 'false',
+        parcelasAtualizaveisCreditosReclamante: 'null',
+        parcelasAtualizaveisDescontoCreditosReclamante: 'null',
+        parcelasAtualizaveisOutrosDebitosReclamado: 'null',
+        parcelasAtualizaveisDebitosReclamante: 'null',
         versaoDoSistema,
     }
 }
@@ -98,19 +145,19 @@ function criaDadosEstruturados(dataCalculo){
     let dadosEstruturados = {
         dataLiquidacao: dataCalculo,
         hashLiquidacao,
-        contrSocialDezPorcento: 0,
-        contrSocialMeioPorcento: 0,
-        custasReclamado: 0,
-        custasReclamante: 0,
-        debitoReclamantePensaoAlimenticia: 0,
-        debitoReclamantePrevidenciaPrivada: 0,
-        fgtsDepositoContaVinculada: 0,
-        impostoRenda: 0,
-        inssReclamado: 0,
-        inssReclamante: 0,
+        contrSocialDezPorcento: '0',
+        contrSocialMeioPorcento: '0',
+        custasReclamado: '0',
+        custasReclamante: '0',
+        debitoReclamantePensaoAlimenticia: '0',
+        debitoReclamantePrevidenciaPrivada: '0',
+        fgtsDepositoContaVinculada: '0',
+        impostoRenda: '0',
+        inssReclamado: '0',
+        inssReclamante: '0',
         jurosMora:'null',
         jurosPrevidenciaPrivada:'null',
-        valorPrincipal: 0,
+        valorPrincipal: '0',
         tipoRegistroCalculo: 'CALCULO',
         multas,
         honorarios,
@@ -122,12 +169,12 @@ function criaGprec({reclamante, cpfReclamante}, dataCalculo){
         dataCalculo: dataCalculo,
         nomeBeneficiario: reclamante,
         documentoFiscalBeneficiario: cpfReclamante,
-        liquidoExequente: 0,
-        inssBeneficiario: 0,
-        inssExecutado: 0,
-        impostoRenda: 0,
-        depositoFgts: 0,
-        custasJudiciais: 0,
+        liquidoExequente: '0',
+        inssBeneficiario: '0',
+        inssExecutado: '0',
+        impostoRenda: '0',
+        depositoFgts: '0',
+        custasJudiciais: '0',
         honorariosReclamante,
         honorariosReclamado,
     }
