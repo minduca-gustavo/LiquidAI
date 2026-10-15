@@ -37,16 +37,33 @@ async function configurar(parametro) {
 
 async function extraiDadosPJE(){
     return({
-        reclamante,
-        cpfReclamante,
-        dataAjuizamento,
-        cpfUsuarioCriador,
-        idSetor
+        dadosProcesso:{
+            reclamante,
+            cpfReclamante,
+            dataAjuizamento,
+            cpfUsuarioCriador,
+            idSetor
+        },
+        dadosProcessuaisPJECalc:{
+            valorDaCausa,
+            dataAutuacao,
+            numero,
+            ano,
+            justica,
+            regiao,
+            vara,
+            digito,
+            tipoDocumentoPrevidenciarioReclamante,
+            numeroDocumentoPrevidenciarioReclamante,
+            nomeReclamante,
+            tipoDocumentoFiscalReclamante,
+            numeroDocumentoFiscalReclamante,
+        }
     })
 }
 
 async function gerarPJC(){
-    let dadosProcesso = await extraiDadosPJE()
+    let {dadosProcesso, dadosProcessuaisPJECalc} = await extraiDadosPJE()
     let textoSentenca = extraiTextoEditor()
     let configuracoes = await configurar('extrair')
     let dataCalculo = new Date().setHours(0,0,0,0)
@@ -65,14 +82,62 @@ async function gerarPJC(){
         },
         textoSentenca,
         dadosProcesso,
-        configuracoes
+        configuracoes,
     )
-    let dadosProcessuaisPJECalc = criaDadosProcessuais()
+    let processoPJECalc = criaDadosProcessuaisPJECalc(dadosProcessuaisPJECalc, ++indice, ++versao, ++indice)
 }
 
-function criaDadosProcessuais(){
-    
+function criaDadosProcessuaisPJECalc(
+    {
+        valorDaCausa = '0.00',
+        dataAutuacao = new Date().setHours(0,0,0,0),
+        numero,
+        ano,
+        justica,
+        regiao,
+        vara,
+        digito,
+    },
+    id, 
+    versao,
+    internalRef,
+){
+    return({
+        processo:{
+            Processo:{
+                id,
+                versao,
+                valorDaCausa,
+                dataAutuacao,
+                calculo:{
+                    Calculo:{
+                        internalRef
+                    }
+                },
+                identificador:{
+                    IdentificadorDoProcesso:{
+                        numero,
+                        ano,
+                        justica,
+                        regiao,
+                        vara,
+                        digito,
+                    }
+                },
+                reclamante:{
+                    Reclamante:{
+                        tipoDocumentoPrevidenciario,
+                        numeroDocumentoPrevidenciario,
+                        nome,
+                        tipoDocumentoFiscal,
+                        numeroDocumentoFiscal,
+                    }
+                }
+            }
+        }
+    })
 }
+
 
 function criaParametrosIniciais(
     {
@@ -110,10 +175,13 @@ function criaParametrosIniciais(
         dataAjuizamento,
         cpfUsuarioCriador,
         idSetor
-    }, // vem do extraiDadosPJE
+    }, // vem do extraiDadosPJE - dadosProcesso
     {
         versaoDoSistema
-    } // vem do configurar
+    }, // vem do configurar
+    {
+
+    } // vem do extraiDadosPJE - dadosProcessuaisPJECalc
 ){
     let parametros = {
         id: id,
