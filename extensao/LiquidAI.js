@@ -58,6 +58,9 @@ async function extraiDadosPJE(){
             nomeReclamante,
             tipoDocumentoFiscalReclamante,
             numeroDocumentoFiscalReclamante,
+            nomeReclamado,
+            tipoDocumentoFiscalReclamado,
+            numeroDocumentoFiscalReclamado,
         }
     })
 }
@@ -97,6 +100,14 @@ function criaDadosProcessuaisPJECalc(
         regiao,
         vara,
         digito,
+        tipoDocumentoPrevidenciarioReclamante,
+        numeroDocumentoPrevidenciarioReclamante,
+        nomeReclamante,
+        tipoDocumentoFiscalReclamante,
+        numeroDocumentoFiscalReclamante,
+        nomeReclamado,
+        tipoDocumentoFiscalReclamado,
+        numeroDocumentoFiscalReclamado,
     },
     id, 
     versao,
@@ -126,12 +137,25 @@ function criaDadosProcessuaisPJECalc(
                 },
                 reclamante:{
                     Reclamante:{
-                        tipoDocumentoPrevidenciario,
-                        numeroDocumentoPrevidenciario,
-                        nome,
-                        tipoDocumentoFiscal,
-                        numeroDocumentoFiscal,
+                        tipoDocumentoPrevidenciario: tipoDocumentoPrevidenciarioReclamante,
+                        numeroDocumentoPrevidenciario: numeroDocumentoPrevidenciarioReclamante,
+                        nome: nomeReclamante,
+                        tipoDocumentoFiscal: tipoDocumentoFiscalReclamante,
+                        numeroDocumentoFiscal: numeroDocumentoFiscalReclamante,
                     }
+                },
+                reclamado:{
+                    Reclamado:{
+                        nome: nomeReclamado,
+                        tipoDocumentoFiscal: tipoDocumentoFiscalReclamado,
+                        numeroDocumentoFiscal: numeroDocumentoFiscalReclamado,
+                    }
+                },
+                advogadosReclamante:{
+                    List
+                },
+                advogadosReclamado:{
+                    List
                 }
             }
         }
