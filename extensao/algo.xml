@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<html lang="pt_BR"
+    xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" media="rich-extended-skinning" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/css/msg.css" rel="stylesheet" type="text/css" />
+        <link class="component" href="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/css/msgs.css" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.ImageCacheScript" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/ajax4jsf/javascript/scripts/form.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/simulate.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/tabPanel.js" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalcss/tabPanel.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/tooltip.js" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/tooltip.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalcss/table.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/events.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/json/json-dom.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/scriptaculous/effects.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/JQuerySpinBtn.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/calendar.js" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/calendar.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery.hotkeys.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/hotKey.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/datascroller.js" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalcss/datascroller.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanel.js" type="text/javascript">
+        </script>
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanelBorders.js" type="text/javascript">
+        </script>
+        <link class="component" href="/pjecalc/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/modalPanel.xcss/DATB/eAELKhNYFrp8hjQADgQDLg__" rel="stylesheet" type="text/css" />
+        <script src="/pjecalc/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <span role="presentation" aria-live="none" aria-label="" id="formulario:painelPontosFacultativos" summary="">
+            <table border="0" cellpadding="2" cellspacing="2">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="formulario:pontoFacultativo">Ponto Facultativo</label>
+                            <br />
+                            <select id="formulario:pontoFacultativo" name="formulario:pontoFacultativo" size="1" style="width:140px;">
+                                <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected"></option>
+                                <option value="673">SEXTA-FEIRA SANTA</option>
+                                <option value="674">CORPUS CHRISTI</option>
+                                <option value="675">CARNAVAL</option>
+                            </select>
+                            <span id="formulario:j_id575" role="alert" class="rich-message">
+                                <span class="rich-message-label"></span>
+                            </span>
+                        </td>
+                        <td class="verticalTop">
+                            <a class="botaoAddItem" href="#" id="formulario:cmdAdicionarPontoFacultativo" name="formulario:cmdAdicionarPontoFacultativo" onclick="AguardeShow();;A4J.AJAX.Submit('formulario',event,{'similarityGroupingId':'formulario:cmdAdicionarPontoFacultativo','containerId':'formulario:regionFormulario','oncomplete':function(request,event,data){AguardeHide();},'parameters':{'formulario:cmdAdicionarPontoFacultativo':'formulario:cmdAdicionarPontoFacultativo'} } );return false;" title="Adicionar Ponto Facultativo"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </span>
+        <meta name="Ajax-Update-Ids" content="formulario:painelPontosFacultativos" />
+        <span id="ajax-view-state">
+            <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id5" autocomplete="off" />
+        </span>
+        <meta id="Ajax-Response" name="Ajax-Response" content="true" />
+        <meta name="Ajax-Update-Ids" content="formulario:painelPontosFacultativos" />
+        <span id="ajax-view-state">
+            <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id5" autocomplete="off" />
+        </span>
+        <meta id="Ajax-Response" name="Ajax-Response" content="true" />
+    </body>
+</html>

@@ -1,4 +1,37 @@
-function extraiTextoEditor(){
+async function liquidAIgerarPJC(){
+    let {dadosProcesso, dadosProcessuaisPJECalc, municipio} = await liquidAIextraiDadosPJE()
+    let textoSentenca = liquidAIextraiTextoEditor()
+    let configuracoes = await liquidAIconfigurar('extrair')
+    let dataCalculo = new Date().setHours(0,0,0,0)
+    let indice = 0
+    let versao = 0
+    let ordem = 0
+    // gprec parcitipa, é o primeiro
+    let gprec = liquidAIcriaGprec(dadosProcesso, dataCalculo)
+    // dadosEstruturados participa, é o segundo
+    let dadosEstruturados = liquidAIcriaDadosEstruturados(dataCalculo)
+    // os parametros entram, mas o retorno são variáveis separadas.
+    let parametros = liquidAIcriaParametrosIniciais(
+        {
+            id: ++indice, 
+            versao: ++versao, 
+            dataCriacao: dataCalculo,
+            dataDeLiquidacao: dataCalculo,
+            versaoDoSistema: versaoDoPJECalc,
+        },
+        textoSentenca,
+        dadosProcesso,
+        configuracoes,
+    )
+    // processo entra e é uma variável só
+    let processoPJECalc = liquidAIcriaDadosProcessuaisPJECalc(dadosProcessuaisPJECalc, ++indice, ++versao, ++indice)
+    // município tem uma externalRef que é da tabela TOM da receita federal
+    let municipioTOM = liquidAIdefineMunicipio({municipio})
+    // restante trará tudo que não foi mapeado, de acordo com CalculoCalculistaSemVerbasSemHistorico.xml
+    let restante = naoMapeados()
+}
+
+function liquidAIextraiTextoEditor(){
     return({
         dataAdmissao,
         dataDemissao,
@@ -24,18 +57,18 @@ function extraiTextoEditor(){
     })
 }
 
-async function configurar(parametro) {
+async function liquidAIconfigurar(parametro) {
     if(parametro === 'extrair'){
         let versaoDoPJECalc = await obterVersao()
         return({versaoDoSistema: versaoDoPJECalc})
     }
-    async function obterVersao() {
+    async function liquidAIobterVersao() {
         let versao = ''
         return ({versao})
     }
 }
 
-async function extraiDadosPJE(){
+async function liquidAIextraiDadosPJE(){
     return({
         dadosProcesso:{
             reclamante,
@@ -61,36 +94,13 @@ async function extraiDadosPJE(){
             nomeReclamado,
             tipoDocumentoFiscalReclamado,
             numeroDocumentoFiscalReclamado,
-        }
+        },
+        municipio
     })
 }
 
-async function gerarPJC(){
-    let {dadosProcesso, dadosProcessuaisPJECalc} = await extraiDadosPJE()
-    let textoSentenca = extraiTextoEditor()
-    let configuracoes = await configurar('extrair')
-    let dataCalculo = new Date().setHours(0,0,0,0)
-    let indice = 0
-    let versao = 0
-    let ordem = 0
-    let gprec = criaGprec(dadosProcesso, dataCalculo)
-    let dadosEstruturados = criaDadosEstruturados(dataCalculo)
-    let parametros = criaParametrosIniciais(
-        {
-            id: ++indice, 
-            versao: ++versao, 
-            dataCriacao: dataCalculo,
-            dataDeLiquidacao: dataCalculo,
-            versaoDoSistema: versaoDoPJECalc,
-        },
-        textoSentenca,
-        dadosProcesso,
-        configuracoes,
-    )
-    let processoPJECalc = criaDadosProcessuaisPJECalc(dadosProcessuaisPJECalc, ++indice, ++versao, ++indice)
-}
 
-function criaDadosProcessuaisPJECalc(
+function liquidAIcriaDadosProcessuaisPJECalc(
     {
         valorDaCausa = '0.00',
         dataAutuacao = new Date().setHours(0,0,0,0),
@@ -163,13 +173,13 @@ function criaDadosProcessuaisPJECalc(
 }
 
 
-function criaParametrosIniciais(
+function liquidAIcriaParametrosIniciais(
     {
         id,
         versao,
         dataCriacao= new Date().setHours(0,0,0,0),
         dataDeLiquidacao = new Date().setHours(0,0,0,0)
-    }, // vem do gerarPJC
+    }, // vem do liquidAIgerarPJC
     {
         dataAdmissao,
         dataDemissao,
@@ -194,18 +204,18 @@ function criaParametrosIniciais(
         processoInformadoManualmente= 'false',
         comentarios= 'null',
         diaFechamentoMes= '31',
-    }, // vem do extraiTextoEditor
+    }, // vem do liquidAIextraiTextoEditor
     {
         dataAjuizamento,
         cpfUsuarioCriador,
         idSetor
-    }, // vem do extraiDadosPJE - dadosProcesso
+    }, // vem do liquidAIextraiDadosPJE - dadosProcesso
     {
         versaoDoSistema
-    }, // vem do configurar
+    }, // vem do liquidAIconfigurar
     {
 
-    } // vem do extraiDadosPJE - dadosProcessuaisPJECalc
+    } // vem do liquidAIextraiDadosPJE - dadosProcessuaisPJECalc
 ){
     let parametros = {
         id: id,
@@ -255,7 +265,7 @@ function criaParametrosIniciais(
     }
 }
 
-function criaDadosEstruturados(dataCalculo){
+function liquidAIcriaDadosEstruturados(dataCalculo){
     let dadosEstruturados = {
         dataLiquidacao: dataCalculo,
         hashLiquidacao,
@@ -278,7 +288,7 @@ function criaDadosEstruturados(dataCalculo){
     }
 }
 
-function criaGprec({reclamante, cpfReclamante}, dataCalculo){
+function liquidAIcriaGprec({reclamante, cpfReclamante}, dataCalculo){
     let gprec = {
         dataCalculo: dataCalculo,
         nomeBeneficiario: reclamante,
@@ -295,18 +305,22 @@ function criaGprec({reclamante, cpfReclamante}, dataCalculo){
     return {gprec}
 }
 
-function JsonToXml(objeto) {
+function liquidAIdefineMunicipio({cidade}){
+    return {municipio: {Municipio: externalRef}}
+}
+
+function liquidAIJsonToXml(objeto) {
     var xml = ''
     for (var propriedade in objeto) {
         xml += Array.isArray(objeto[propriedade]) ? '' : "<" + propriedade + ">"
         if (Array.isArray(objeto[propriedade])) {
             for (var array in objeto[propriedade]) {
                 xml += "<" + propriedade + ">"
-                xml += JsonToXml(objeto[propriedade][array])
+                xml += liquidAIJsonToXml(objeto[propriedade][array])
                 xml += "</" + propriedade + ">"
             }
         } else if (typeof objeto[propriedade] == "object") {
-            xml += JsonToXml(objeto[propriedade])
+            xml += liquidAIJsonToXml(objeto[propriedade])
         } else {
             xml += objeto[propriedade]
         }
